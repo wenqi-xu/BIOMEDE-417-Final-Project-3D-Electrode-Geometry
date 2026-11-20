@@ -1,0 +1,21 @@
+# course materials (not ours to redistribute)
+*.pdf
+
+# COMSOL lock / recovery files
+*.mph.lock
+*.mph.recovery
+
+# compiled NEURON mechanisms (platform-specific: rebuild from AXNODE.mod)
+*.dll
+*.o
+*.c
+*.cpp
+arm64/
+x86_64/
+aarch64/
+
+# Python / OS junk
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
