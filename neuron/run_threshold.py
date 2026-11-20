@@ -22,6 +22,8 @@ from neuron import h, load_mechanisms
 HERE = os.path.dirname(os.path.abspath(__file__)).replace("\\", "/")   # hoc needs '/'
 PROJECT = os.path.dirname(HERE)
 EXPORT_DIR = sys.argv[1] if len(sys.argv) > 1 else os.path.join(PROJECT, "comsol_exports")
+RESULTS_DIR = os.path.join(PROJECT, "results")
+os.makedirs(RESULTS_DIR, exist_ok=True)
 
 # ---------------- settings ----------------
 POLARITY = -1      # -1 cathodic, +1 anodic
@@ -122,7 +124,7 @@ for f in files:
     print(f"{shape:10s} d = {dist:5.2f} mm   threshold = {Ith:8.1f} uA   charge = {Ith * PW:7.2f} nC")
 
 # save table
-out_csv = os.path.join(HERE, "thresholds.csv")
+out_csv = os.path.join(RESULTS_DIR, "thresholds.csv")
 with open(out_csv, "w") as fh:
     fh.write("shape,distance_mm,threshold_uA,charge_nC\n")
     for r in rows:
@@ -137,6 +139,12 @@ for shape in sorted({r[0] for r in rows}):
 ax.set(xscale="log", yscale="log", xlabel="electrode-to-axon distance (mm)",
        ylabel="threshold current (uA)",
        title=f"MRG {h.fiberD:g} um, {PW} ms {'cathodic' if POLARITY < 0 else 'anodic'} pulse")
+plain = plt.FuncFormatter(lambda v, _: f"{v:g}")     # plain numbers instead of 10^x labels
+ax.xaxis.set_minor_formatter(plt.NullFormatter())
+ax.set_xticks(sorted({r[1] for r in rows}))          # one tick per tested distance
+ax.xaxis.set_major_formatter(plain)
+ax.yaxis.set_major_formatter(plain)
+ax.yaxis.set_minor_formatter(plain)
 ax.legend(); ax.grid(alpha=.3, which="both")
 fig.tight_layout()
-fig.savefig(os.path.join(HERE, "threshold_vs_distance.png"), dpi=150)
+fig.savefig(os.path.join(RESULTS_DIR, "threshold_vs_distance.png"), dpi=150)

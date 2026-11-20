@@ -1,0 +1,9 @@
+shape,distance_mm,threshold_uA,charge_nC
+cone,0.05,6.484,0.6484
+cone,0.1,10.234,1.0234
+cone,0.2,18.594,1.8594
+cone,0.5,50.625,5.0625
+cylinder,0.05,5.039,0.5039
+cylinder,0.1,8.750,0.8750
+cylinder,0.2,17.031,1.7031
+cylinder,0.5,48.438,4.8438
