@@ -1,6 +1,4 @@
-"""Write COMSOL 'From file' coordinate files (same format as the tutorial's XYZcoordinates_fiberD.txt):
-221 rows, x<TAB>y<TAB>z in mm, order node -> MYSA -> FLUT -> STIN.
-Axon along x, middle node directly above the electrode (origin), at height z = distance."""
+"""Write the axon coordinate files (mm) for COMSOL "From file" export: coords/axon_xyz_d{distance}mm.txt."""
 import os
 import numpy as np
 from neuron import h, load_mechanisms
@@ -15,8 +13,8 @@ h.load_file(HERE + "/mrg_axon.hoc")
 
 secs = list(h.node) + list(h.MYSA) + list(h.FLUT) + list(h.STIN)
 mid = h.node[int(h.axonnodes) // 2](0.5)
-pos = np.array([h.distance(h.node[0](0.5), s(0.5)) for s in secs])   # path distance from node[0] [um]
-x_mm = (pos - h.distance(h.node[0](0.5), mid)) * 1e-3                # center on middle node, um -> mm
+pos = np.array([h.distance(h.node[0](0.5), s(0.5)) for s in secs])
+x_mm = (pos - h.distance(h.node[0](0.5), mid)) * 1e-3
 
 os.makedirs(HERE + "/coords", exist_ok=True)
 for d in DISTANCES_MM:

@@ -1,46 +1,26 @@
-/*--------------------------------------------------------------------
-Copied from 2/02
-Cameron C. McIntyre
-SIMULATION OF PNS MYELINATED AXON
-
-This model is described in detail in:
-
-McIntyre CC, Richardson AG, and Grill WM. Modeling the excitability of
-mammalian nerve fibers: influence of afterpotentials on the recovery
-cycle. Journal of Neurophysiology 87:995-1006, 2002.
-
-This model can not be used with NEURON v5.1 as errors in the
-extracellular mechanism of v5.1 exist related to xc. The original
-stimulations were run on v4.3.1. NEURON v5.2 has corrected the 
-limitations in v5.1 and can be used to run this model.
-
-- intracellular stimulus removed
-- paranodes / internodes written relative to axonnodes
-----------------------------------------------------------------------*/
+/* MRG myelinated axon, from the BIOMEDE 417 tutorial MRGaxon.hoc.
+   McIntyre CC, Richardson AG, Grill WM. J Neurophysiol 87:995-1006, 2002. */
 
 proc model_globels() {
 	celsius=37
-	v_init=-80 //mV//
-	dt=0.005 //ms//
+	v_init=-80
+	dt=0.005
 	tstop=5
 
-//topological parameters//
 	axonnodes=21
 	paranodes1=(axonnodes-1)*2
 	paranodes2=(axonnodes-1)*2
 	axoninter=(axonnodes-1)*6
 	axontotal=axonnodes+paranodes1+paranodes2+axoninter
-//morphological parameters//
-	fiberD=10.0	//choose from 5.7, 7.3, 8.7, 10.0, 11.5, 12.8, 14.0, 15.0, 16.0
+	fiberD=10.0
 	paralength1=3
 	nodelength=1.0
 	space_p1=0.002
 	space_p2=0.004
 	space_i=0.004
-//electrical parameters//
-	rhoa=0.7e6 //Ohm-um//
-	mycm=0.1 //uF/cm2/lamella membrane//
-	mygm=0.001 //S/cm2/lamella membrane//
+	rhoa=0.7e6
+	mycm=0.1
+	mygm=0.001
 	}
 model_globels ()
 
